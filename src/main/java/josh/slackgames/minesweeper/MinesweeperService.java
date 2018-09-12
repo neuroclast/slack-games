@@ -47,6 +47,25 @@ public class MinesweeperService {
 
 
     /**
+     * Resets a game
+     * @param channelId channel to reset game for
+     * @return Game object
+     */
+    Game resetGame(String channelId) {
+        if(!gameExists(channelId)) {
+            return null;
+        }
+
+        Game oldGame = getGame(channelId);
+        Game newGame = new Game(oldGame.getLevel());
+        endGame(channelId);
+        games.put(channelId, newGame);
+
+        return newGame;
+    }
+
+
+    /**
      * Ends a game
      * @param channelId Channel ID
      */
